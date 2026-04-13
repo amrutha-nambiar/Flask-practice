@@ -1,0 +1,12 @@
+<h2>Marks</h2>
+<table border="1">
+<tr><th>Subject</th><th>Score</th></tr>
+
+{% for subject, score in marks.items() %}
+<tr>
+    <td>{{ subject }}</td>
+    <td>{{ score }}</td>
+</tr>
+{% endfor %}
+
+</table>
