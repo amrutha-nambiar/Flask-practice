@@ -1,0 +1,25 @@
+from flask import Flask, request
+import sqlite3
+
+app = Flask(__name__)
+
+@app.route('/add/<name>')
+def add_product(name):
+    conn = sqlite3.connect('products.db')
+    cur = conn.cursor()
+    cur.execute("CREATE TABLE IF NOT EXISTS products (name TEXT)")
+    cur.execute("INSERT INTO products VALUES (?)", (name,))
+    conn.commit()
+    conn.close()
+    return "Product added!"
+
+@app.route('/products')
+def view_products():
+    conn = sqlite3.connect('products.db')
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM products")
+    data = cur.fetchall()
+    conn.close()
+    return str(data)
+
+app.run(debug=True)
